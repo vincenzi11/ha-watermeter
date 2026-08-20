@@ -1,191 +1,154 @@
-# Easy Watermeter Integration for Home Assistant
+# Watermeter - Home Assistant Integration
 
 [![License][license-shield]][license]
 [![ESP32 Release](https://img.shields.io/github/v/release/zibous/ha-watermeter.svg?style=flat-square)](https://github.com/zibous/ha-watermeter/releases)
 [![ESPHome release][esphome-release-shield]][esphome-release]
-[![Open in Visual Studio Code][open-in-vscode-shield]][open-in-vscode]
 [![Support author][donate-me-shield]][donate-me]
 
 [license-shield]: https://img.shields.io/static/v1?label=License&message=MIT&color=orange&logo=license
 [license]: https://opensource.org/licenses/MIT
 
-[esphome-release-shield]: https://img.shields.io/static/v1?label=ESPHome&message=2023.5.0&color=green&logo=esphome
+[esphome-release-shield]: https://img.shields.io/static/v1?label=ESPHome&message=2026.6.4&color=green&logo=esphome
 [esphome-release]: https://GitHub.com/esphome/esphome/releases/
-
-[open-in-vscode-shield]: https://img.shields.io/static/v1?label=+&message=Open+in+VSCode&color=blue&logo=visualstudiocode
-[open-in-vscode]: https://open.vscode.dev/zibous/ha-watermeter
 
 [donate-me-shield]: https://img.shields.io/static/v1?label=+&color=orange&message=Buy+me+a+coffee
 [donate-me]: https://www.buymeacoff.ee/zibous
 
-<br>
+---
 
-## Water meter with IZAR module (Diehl IZAR RC 868 I R4 PL)
+## About
+
+Reading water meters equipped with **IZAR modules** (Diehl IZAR RC 868 I R4 PL) via wM-Bus 868 MHz and integrating them into Home Assistant using ESPHome.
 
 ![diehl_metering](./docs/diehl_metering.jpg)
 
+---
 
-I did some experiments with **wmbusmeters**, **DVT SDR_STICK**, **NANOCUL** and ended up with: **ESPHome - ESP32 (v4) + CC1101**.
+## Current Version: v5 (ESPHome + ESP32 + CC1101)
 
-With the NANOCUL solutions, I always had problems with the USB input and with the high resource consumption on the NUC or Raspberry computers.
+The current version is based on **ESPHome** with **ESP32 boards** and the **CC1101 868 MHz transceiver**. It offers low resource consumption, stable radio reception, and easy OTA updates.
 
-<br>
+### Supported Boards (v5)
 
-## ESPHome + ESP32 (v4) + CC1101
-
-ESPHome - ESP32 (v4) + CC1101 is the best solution for me because the resource requirement is low.
-
-[![](https://img.shields.io/badge/ESPHOME_ESP32_(v4)+CC1101-orange?style=for-the-badge)](https://github.com/zibous/ha-watermeter/blob/master/esphome/wm-esp32.yaml)
-
-
-<br>
-
-## ESP32 (v4) Variante
-
-![ESPHome - ESP32 (v4) + CC1101](./esphome/docs/esp32_cc1101.png)
+| Board | Configuration |
+|-------|---------------|
+| **ESP32 DevKit V4** + CC1101 | [`esphome/esp32-devkit-v4-wasserzahler.yaml`](esphome/esp32-devkit-v4-wasserzahler.yaml) |
+| **M5Stack ATOM Lite** (ESP32-PICO) + CC1101 | [`esphome/atom-watermeter.yaml`](esphome/atom-watermeter.yaml) |
+| **Heltec WiFi LoRa 32** + CC1101 | [`esphome/heltec-watermeter.yaml`](esphome/heltec-watermeter.yaml) |
+| **Heltec ESP32-S3 V4** (LoRa, OLED) + CC1101 | [`esphome/wm5-heltec-esp32S3-v4.yaml`](esphome/wm5-heltec-esp32S3-v4.yaml) |
 
 ### Requirements
 
-- Water meter with IZAR module (Diehl IZAR RC 868 I R4 PL),
-  IZAR Radio Compact Hall is designed for mobile reading and fixed network remote reading of Diehl Metering meters.
-  <br>
-- [ ESP32 Dev Kit C V4 NodeMCU](https://amzn.eu/d/eUNLyYc)
-- [Fayme CC1101 868MHZ Funk ÜBertragung Antennen Transceiver Modul, Grün](https://amzn.eu/d/i5YwBkR) <br>
-Alternative: [ EBYTE TI CC1101 Wireless 868Mhz 915Mhz RF Modul](https://amzn.eu/d/7GPqsng) with external antenna.
+- Water meter with IZAR module (Diehl IZAR RC 868 I R4 PL)
+- ESP32 board (see table above)
+- CC1101 868 MHz transceiver module (e.g. [Fayme CC1101](https://amzn.eu/d/i5YwBkR) or [EBYTE TI CC1101](https://amzn.eu/d/7GPqsng))
+- ESPHome >= 2026.6.4
+- Home Assistant
 
-<br>
+### Quick Start
 
-## Wiring CC1101 module to boards
-![CC1101 module to boards](./esphome/docs/cc1101_board_pins.png)
+1. Install ESPHome (Docker or HA Add-on)
+2. Create `secrets.yaml` with your WiFi credentials and meter ID
+3. Flash the appropriate YAML configuration:
+   ```bash
+   esphome run esphome/esp32-devkit-v4-wasserzahler.yaml
+   ```
+4. The device will be automatically discovered in Home Assistant
 
+### Test Configurations
 
-### Meter types:
+The [`esphome/test/`](esphome/test/) folder contains:
+- Minimal test configs to discover meter IDs in range
+- Pre-compiled firmware binaries for quick USB flashing
 
-Currently supported meter types (wmbus 2.1.10):
+---
 
-- amiplus
-- apator08 
-- apator162
-- apatoreitn
-- bmeters
-- compact5
-- elf
-- evo868
-- fhkvdataiii
-- hydrocalm3
-- hydrus
-- iperl
-- itron
-- **izar**
-- mkradio3
-- mkradio4
-- qheat
-- qwater
-- sharky774
-- topaseskr
-- ultrimis
-- unismart
-- vario451
-- ... more will come :)
+## Version History
 
-see: <https://github.com/SzczepanLeon/esphome-components>
+| Version | Period | Technology | Status |
+|---------|--------|-----------|--------|
+| **v5** | 2025+ | ESPHome + ESP32/S3 + CC1101 (esp-idf) | **Current** |
+| v4 | 2023-2024 | ESPHome + ESP32 + CC1101 (Arduino) | Archived |
+| v3 | 2022 | ESPHome + ESP8266/ESP32 + CC1101 | Archived |
+| v2 | 2021 | Python App + NanoCUL 868 MHz | Archived |
+| v1 | 2020 | Python App + RTL-SDR DVB-T Stick | Archived |
 
-## Installation / Details
-[ESPHome - ESP32 (v4) + CC1101](./esphome/README.md)
+### What's New in v5?
 
-## Result
+- Switched from Arduino framework to **esp-idf** for better stability
+- Support for **ESP32-S3** boards (Heltec V4 with LoRa + OLED display)
+- Dynamic meter ID change at runtime (no reflash needed)
+- Optimized memory usage
+- Pre-built firmware binaries for easy initial USB flashing
 
-### ESPHOME Webserver V2
-![ESPHOME-WATERMETER](./esphome/docs/water-meter-esp.png)
+---
 
-### ESPHOME Webserver V3
-![ESPHOME-WEBSERVER3](./esphome/docs/watermeter-webserver3.png)
+## Project Structure
 
-### Homeassistant Device
-![ESPHOME-WATERMETER](./esphome/docs/ha_water-meter-esp.png)
+```
+ha-watermeter/
+├── README.md               ← You are here
+├── LICENSE
+├── esphome/                ← v5 configurations (current)
+│   ├── atom-watermeter.yaml
+│   ├── esp32-devkit-v4-wasserzahler.yaml
+│   ├── heltec-watermeter.yaml
+│   ├── wm5-heltec-esp32S3-v4.yaml
+│   └── test/               ← Test configs & firmware binaries
+├── docs/                   ← Documentation, images, datasheets
+│   └── homeassistant/      ← HA dashboard & sensor configs
+└── archive/                ← Older versions (v1-v4)
+    ├── esphome-v4/         ← ESPHome v4 configurations
+    ├── python-app/         ← Python MQTT bridge (v1/v2)
+    ├── nanocul/            ← NanoCUL 868 documentation
+    └── rtl-sdr/            ← RTL-SDR DVB-T documentation
+```
 
-<br>
+---
 
-## ESP8266 vs ESP32 (v4)
-The version with **WEMOS D1MINI (ESP8266)** was my first version. WEMOS D1MINI (ESP8266) has only limited RAM and can only be used to a limited extent. If there are too many sensors and the logger level is to high, a **JSON memory error occurs**, which causes the device to restart again and again.
+## Wiring CC1101 to ESP32
 
-__Note__: The **ESP32** has more RAM memory and is therefore better suited for use. To prevent this, it is absolutely necessary to set the log level to `warn`. Otherwise, at a higher log level, JSON errors will occur in productive operation.
+```
+                                                           o 1 (3.3V)
+                                                           |
+ ╭――x――x――x――x――x――x――x――x――x――x――x――x――x――x――x――x――x――x――x――o―╮
+ |                                                             |
+ | 5v               az-delivery-devkit-v4                      | -- ANT
+ |                                                             |
+ |                          16 17 5  18 19               23    |
+ ╰――x――x――x――x――x――x――x――x――o――x――o――o――o――o――o――o――o――o――o――o―╯
+                            |  |  |  |  |                 |   |
+                            o  |  |  o  |                 |   ╰-o - 2 (GND)
+                            7  o  |  4  o                 o
+                          GDO0 6  | CLK 5                 3
+                             GD02 o    MISO              MOSI
+                                  8
+                                 CSN
+```
 
-<br>
+| CC1101 Pin | ESP32 GPIO | Function |
+|------------|-----------|----------|
+| MOSI | GPIO23 | SPI Data Out |
+| MISO | GPIO19 | SPI Data In |
+| SCK | GPIO18 | SPI Clock |
+| CSN | GPIO05 | Chip Select |
+| GDO0 | GPIO16 | RX Clock |
+| GDO2 | GPIO17 | TX Status |
+| VCC | 3.3V | Power |
+| GND | GND | Ground |
 
-|  Device | Remarks   | Hardware  | 
-|---------|-----------|--------|
-|**Wemos D1 Mini Board 80KB RAM**<br><img src="./esphome/docs/d1Mini-wemos.png"  width="40%">|  CC1101, board: d1_mini   |   ESP8266 80MHz, **80KB RAM**, 4MB Flash |
-|**Wemos D1 Mini 80KB RAM**<br><img src="./esphome/docs/d1mini-esp8266MOD-12F.png"  width="40%"> |  CC1101, board: esp12e (board: d1_mini )|ESP8266 80MHz, **80KB RAM** , 4MB Flash       |
-|**NodeMCU Lolin V3 Modul 80KB RAM** <br><img src="./esphome/docs/nodemcu_v3.png"  width="40%"> |     CC1101, board: NodeMCU Lua Lolin V3 Module ESP8266  | ESP8266 80MHz, **80KB RAM** , 4MB Flash      |
-|**D1MINI ESP32 320KB RAM**<br><img src="./esphome/docs/d1miniesp32.png"  width="40%"> |  CC1101, board: D!MINI ESP32  |  ESP32 240MHz, **320KB RAM**, 4MB Flash    |
-|**ESP32 Dev Kit C V4 520KB RAM**<br><img src="./esphome/docs/az-delivery-devkit-v4.png"  width="40%"> |  CC1101, board: az-delivery-devkit-v4  |  ESP32 240MHz, **520KB RAM**, 4MB Flash     |
+---
 
+## Links & Resources
 
-<br>
+- [SzczepanLeon ESPHome wMBus Components](https://github.com/SzczepanLeon/esphome-components)
+- [wmbusmeters](https://github.com/weetmuts/wmbusmeters)
+- [wmbusmeters Telegram Decoder](https://wmbusmeters.org/)
+- [SmartRC-CC1101-Driver-Lib](https://github.com/LSatan/SmartRC-CC1101-Driver-Lib)
+- [Diehl Metering IZAR](https://www.diehl.com/metering/en/)
 
-### Memory Usage D1 Mini
-![memory_usage](https://user-images.githubusercontent.com/30198737/235585457-895bb25f-47a6-4901-a403-96a115caac3d.png)
+---
 
-<br>
+## License
 
-## ESPHome Device configurations
-
-
-- **Testcase - and simple version**
-	`Total Water m³ (Watermeter Display)`, `LQI`, `RSSI`, `Total m³`, `Last Month total m³`, `Current Month total liter`, `Remaining Battery Lifetime`, `Last Transmit periode`, `Current Alarm Code`, `Previous Alarm Code`, `Boot Counter`, `WIFI Signal`, `Application Version`.
-- **Full version**
-	`Total Water m³ (Watermeter Display)`, `LQI`, `RSSI`, `Total m³`, `Last Month total m³`, `Water usage current`, `Water usage hour`, `Water usage today`, `Water usage yesterday`, `Water usage week`, `Water usage month`, `Water usage previous month`, `Water usage current year `, `Remaining Battery Lifetime`, `Last Transmit periode`, `Alarm Text`, `Previous Alarm Text`, `Boot Counter`, `WIFI Signal`, `Reset values`, `Restart`, `Set History value with Homeassistant service`, `Application Version`, `Online Time`, `Watermeter LED`, `Watermeter Timestamp`, `Watermeter Update intervall`.	
-
-<br>	
-	
-|  Version         | Remarks   | Configuration  | 
-|------------------|-----------|----------------|
-| 🛠 WMBUSCHECK  |Test configuration and wmbus. NO SENSORS only messages: Details see Log window  |[wm-check-wmbus.yaml](esphome/wm-check-wmbus.yaml)  |
-| 🛠 ESP32 Test  |Frist run to find watermeters. Messages see Log window or syslog messages |[wm-esp32-test.yaml](esphome/wm-esp32-test.yaml)  |
-| 💻 ESP32 Simple  |Simple Sensor outputs, no calculations. Low memory consumption.|[wm-esp32-simple.yaml](esphome/wm-esp32-simple.yaml) |
-|✔️ ESP32  |Full version - Sensors and calulated values, Statitics. Alarmcode text message          |[wm-esp32.yaml](esphome/wm-esp32.yaml) |
-| 🛠 D1 MINI ESP32 Test  |Frist run to find watermeters. Messages see Log window or syslog messages |[wm-d1mini32-test.yaml](esphome/wm-d1mini32-test.yaml)  |
-| 💻 D1 MINI ESP32 Simple  |Simple Sensor outputs, no calculations. Low memory consumption.         |[wm-d1mini32-simple.yaml](esphome/wm-d1mini32-simple.yaml)  |
-|✔️ D1 MINI ESP32  |Full version - Sensors and calulated values, Statitics. Alarmcode text message          |[wm-d1mini32.yaml](esphome/wm-d1mini32.yaml)  |
-| D1MINI IZAR WMBUS|Testcase for IZAR WMBUS METER          |[wm-d1mini_izar-wmbus.yaml](esphome/wm-d1mini_izar-wmbus.yaml)|
-| 🛠 D1MINI Test|Frist run to find watermeters. Messages see Log window or syslog messages         |[wm-d1mini-test.yaml](esphome/wm-d1mini-test.yaml)|
-| 💻 D1MINI Simple |Simple Sensor outputs, no calculations. Low memory consumption.          |[wm-d1mini-simple.yaml](esphome/wm-d1mini-simple.yaml)|
-|✔️ D1MINI |Sensors and calulated values, Statitics. Alarmcode text message          |[wm-d1mini.yaml](esphome/wm-d1mini.yaml)|  
-| 🛠 NodeMCU Test |Frist run to find watermeters. Low memory consumption. Messages see Log window or syslog messages          |[wm-nodemcu-test.yaml](esphome/wm-nodemcu-test.yaml) |
-|✔️ NodeMCU  |Full version - Sensors and calulated values, Statitics. Alarmcode text message|[wm-nodemcu.yaml](esphome/wm-nodemcu.yaml) |  
-  
-<br>  
-  
-<hr>
-
-## Other solutions (alternatively)
-
-- 1. [NANOCUL-DOCKER.md](NANOCUL-DOCKER.md)
-- 2. [NANO-CUL.md](NANO-CUL.md)
-- 3. [RB3B_DVBT - RTL232-md](RTL232.md)
-
-
-
-### For more information see:
-
-- <https://github.com/weetmuts/wmbusmeters>
-
-- <https://github.com/maciekn/izar-wmbus-esp>
-- <https://github.com/MariuszWoszczynski/ESPhome-IZAR-meter-reader>
-
-- <https://github.com/SzczepanLeon/esphome-components>
-
-- <https://osmocom.org/projects/rtl-sdr/wiki/Rtl-sdr>
-- <https://github.com/xaelsouth/rtl-wmbus>
-- <https://github.com/ZeWaren/izar-prios-smart-meter-collector>
-
-#### DVB-T receiver or Nano CUL Adapter
-- DVB-T receiver: <https://amzn.eu/d/8AsinRu>
-
-- nano-cul: <https://www.smart-home-komponente.de/nano-cul/nano-cul-868-extra/>
-
-- diehl watermeter: <https://www.diehl.com/metering/en/portfolio/software-system-components/software-system-components-products/software-system-components-product/izar-radio-compact-hall/74843/>
-
-
-
+This project is licensed under the [MIT License](LICENSE).
