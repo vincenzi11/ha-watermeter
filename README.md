@@ -24,7 +24,8 @@ Reading water meters equipped with **IZAR modules** (Diehl IZAR RC 868 I R4 PL) 
 
 ---
 
-## Current Version: v5 (ESPHome + ESP32 + CC1101)
+## ESPHome Version SzczepanLeon/esphome-components v5 
+
 
 The current version is based on **ESPHome** with **ESP32 boards** and the **CC1101 868 MHz transceiver**. It offers low resource consumption, stable radio reception, and easy OTA updates.
 
@@ -34,8 +35,15 @@ The current version is based on **ESPHome** with **ESP32 boards** and the **CC11
 |-------|---------------|
 | **ESP32 DevKit V4** + CC1101 | [`esphome/esp32-devkit-v4-wasserzahler.yaml`](esphome/esp32-devkit-v4-wasserzahler.yaml) |
 | **M5Stack ATOM Lite** (ESP32-PICO) + CC1101 | [`esphome/atom-watermeter.yaml`](esphome/atom-watermeter.yaml) |
-| **Heltec WiFi LoRa 32** + CC1101 | [`esphome/heltec-watermeter.yaml`](esphome/heltec-watermeter.yaml) |
-| **Heltec ESP32-S3 V4** (LoRa, OLED) + CC1101 | [`esphome/wm5-heltec-esp32S3-v4.yaml`](esphome/wm5-heltec-esp32S3-v4.yaml) |
+| **Heltec WiFi LoRa 32 V2** (recommended) | [`esphome/heltec-watermeter.yaml`](esphome/heltec-watermeter.yaml) |
+| **Heltec ESP32-S3 V4** (recommended) | [`esphome/wm5-heltec-esp32S3-v4.yaml`](esphome/wm5-heltec-esp32S3-v4.yaml) |
+
+> **Recommendation:** The **Heltec boards** (WiFi LoRa 32 V2 and ESP32-S3 V4) are the easiest option. They have the radio chip (SX1276 / SX1262) already built-in on the board, so no additional CC1101 module, no extra wiring, and no soldering is required. Just flash and go.
+
+
+### Runtime Meter ID Change:
+
+> The [`test/esp32-devkit-v4-wasserzahler.yaml`](test/esp32-devkit-v4-wasserzahler.yaml) variant supports changing the meter ID at runtime without recompiling. The ID is stored in NVS flash and can be set via curl, the web dashboard, or a Home Assistant service call. See [Changing the Meter ID at Runtime](#changing-the-meter-id-at-runtime-no-recompile) below.
 
 ### Requirements
 
