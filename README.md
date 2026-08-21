@@ -145,6 +145,19 @@ ha-watermeter/
 | VCC | 3.3V | Power |
 | GND | GND | Ground |
 
+
+---
+
+### 📖 Related Blog Posts
+
+Here you can find the detailed project reports and documentation on my blog:
+
+| 💧 Water & Gas Meter Dashboard | 📡 Smart Water Meter via ESPHome |
+| :---: | :---: |
+| [![hc_waga Dashboard](docs/waga.png)](https://peter.siebler.at/posts/smarthome-wasser-gas-zaehler/) | [![ESPHome Water Meter](docs/wmbusdevices.png)](https://peter.siebler.at/posts/smarthome-esphome-wasserzaehler/) |
+| **Utility Consumption Under Control**<br>Digitization of water, gas, and hot water meters using ESP32 sensors and a FastAPI dashboard. | **Reading Diehl IZAR via Radio**<br>Wireless consumption tracking via wM-Bus and CC1101/SX1276 modules with zero meter modification. |
+| [➡️ View Blog Post](https://peter.siebler.at/posts/smarthome-wasser-gas-zaehler/) | [➡️ View Blog Post](https://peter.siebler.at/posts/smarthome-esphome-wasserzaehler/) |
+
 ---
 
 ## Links & Resources
