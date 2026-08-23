@@ -37,6 +37,7 @@ The current version is based on **ESPHome** with **ESP32 boards** and the **CC11
 | **M5Stack ATOM Lite** (ESP32-PICO) + CC1101 | [`esphome/atom-watermeter.yaml`](esphome/atom-watermeter.yaml) |
 | **Heltec WiFi LoRa 32 V2** (recommended) | [`esphome/heltec-watermeter.yaml`](esphome/heltec-watermeter.yaml) |
 | **Heltec ESP32-S3 V4** (recommended) | [`esphome/wm5-heltec-esp32S3-v4.yaml`](esphome/wm5-heltec-esp32S3-v4.yaml) |
+| **Heltec ESP32-S3 V4 FR Full** (recommended) | [`esphome/wm5-heltec-esp32s3-v4-FR-full.yaml`](esphome/wm5-heltec-esp32s3-v4-FR-full.yaml) |
 
 > **Recommendation:** The **Heltec boards** (WiFi LoRa 32 V2 and ESP32-S3 V4) are the easiest option. They have the radio chip (SX1276 / SX1262) already built-in on the board, so no additional CC1101 module, no extra wiring, and no soldering is required. Just flash and go.
 
