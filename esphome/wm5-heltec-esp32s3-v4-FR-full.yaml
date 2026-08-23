@@ -634,6 +634,7 @@ sensor:
     id: waterjanuary
     accuracy_decimals: 2
     unit_of_measurement: "L"
+    icon: mdi:water-circle
     state_class: total
     device_class: water
     lambda: return id(january_value);
@@ -646,6 +647,7 @@ sensor:
     state_class: total
     device_class: water
     lambda: return id(february_value);
+    icon: "mdi:water-circle"
 
   - platform: template
     name: Eau Mars
@@ -655,6 +657,7 @@ sensor:
     state_class: total
     device_class: water
     lambda: return id(march_value);
+    icon: "mdi:water-circle"
 
   - platform: template
     name: Eau Avril
@@ -664,6 +667,7 @@ sensor:
     state_class: total
     device_class: water
     lambda: return id(april_value);
+    icon: "mdi:water-circle"
 
   - platform: template
     name: Eau Mai
@@ -673,6 +677,7 @@ sensor:
     state_class: total
     device_class: water
     lambda: return id(may_value);
+    icon: "mdi:water-circle"
 
   - platform: template
     name: Eau Juin
@@ -682,6 +687,7 @@ sensor:
     state_class: total
     device_class: water
     lambda: return id(june_value);
+    icon: "mdi:water-circle"
 
   - platform: template
     name: Eau Juillet
@@ -691,6 +697,7 @@ sensor:
     state_class: total
     device_class: water
     lambda: return id(july_value);
+    icon: "mdi:water-circle"
 
   - platform: template
     name: Eau Août
@@ -700,6 +707,7 @@ sensor:
     state_class: total
     device_class: water
     lambda: return id(august_value);
+    icon: "mdi:water-circle"
 
   - platform: template
     name: Eau Septembre
@@ -709,6 +717,7 @@ sensor:
     state_class: total
     device_class: water
     lambda: return id(september_value);
+    icon: "mdi:water-circle"
 
   - platform: template
     name: Eau Octobre
@@ -718,6 +727,7 @@ sensor:
     state_class: total
     device_class: water
     lambda: return id(october_value);
+    icon: "mdi:water-circle"
 
   - platform: template
     name: Eau Novembre
@@ -727,6 +737,7 @@ sensor:
     state_class: total
     device_class: water
     lambda: return id(november_value);
+    icon: "mdi:water-circle"
 
   - platform: template
     name: Eau Décembre
@@ -736,6 +747,7 @@ sensor:
     state_class: total
     device_class: water
     lambda: return id(december_value);
+    icon: "mdi:water-circle"
 
   - platform: template
     name: Intervalle réception données
