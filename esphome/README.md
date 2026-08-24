@@ -10,98 +10,13 @@ All configurations use the **esp-idf** framework and require **ESPHome >= 2026.6
 
 | # | Config | Board | Radio | Features |
 |---|--------|-------|-------|----------|
-| 1 | [esp32-devkit-v4-wasserzahler.yaml](esp32-devkit-v4-wasserzahler.yaml) | ESP32 DevKit V4 | CC1101 | Water meter, full statistics |
-| 2 | [atom-watermeter.yaml](atom-watermeter.yaml) | M5Stack ATOM Lite (ESP32-PICO) | CC1101 | Water meter, RGB LED status, full statistics |
-| 3 | [heltec-watermeter.yaml](heltec-watermeter.yaml) | Heltec WiFi LoRa 32 V2 | SX1276 | Water meter, OLED display, full statistics |
-| 4 | [wm5-heltec-esp32S3-v4.yaml](wm5-heltec-esp32S3-v4.yaml) | Heltec ESP32-S3 LoRa V4 | SX1262 | Water + gas meter, OLED display, DS18B20 temp, pressure sensor |
+| 1 | [wm5-heltec-esp32s3-v4-FR-full.yaml](wm5-heltec-esp32s3-v4-FR-full.yaml) | ESP32 DevKit V4 | CC1101 | Water meter, full statistics |
 
 > **Runtime Meter ID Change:** The [`test/esp32-devkit-v4-wasserzahler.yaml`](test/esp32-devkit-v4-wasserzahler.yaml) variant supports changing the meter ID at runtime without recompiling. The ID is stored in NVS flash and can be set via curl, the web dashboard, or a Home Assistant service call. See [Changing the Meter ID at Runtime](#changing-the-meter-id-at-runtime-no-recompile) below.
 
----
 
-## 1. ESP32 DevKit V4 + CC1101
 
-**Board:** AZ-Delivery DevKit V4 (ESP32 240MHz, 520KB RAM, 4MB Flash)  
-**Radio:** CC1101 868.95 MHz  
-**Hostname:** `water-meter-esp`
-
-### Wiring
-
-```
-                          ╭―――――――――――――――――――――――╮
-                    GPIO6 | [ ] O  | USB |  O [ ] | 5V
-                          |        -------        |
-                          |   az-delivery-devkit  |
-                          |         -v4           |
-                          |                       |
-  GDO0  ■ <---- GPIO16    | [■]               [ ] |
-  GDO2  ■ <---- GPIO17    | [■]               [ ] |
-                GPIO05    | [ ]  ___________  [ ] |
-  CLK   ■ <---- GPIO18    | [■] |           | [ ] |
-  MISO  ■ <---- GPIO19    | [■] |           | [ ] |
-                   GND    | [ ] |           | [ ] |
-  CSN   ■ <---- GPIO21    | [■] |           | [ ] |
-                          |     |           |     |
-  MOSI  ■ <---- GPIO23    | [■] |           | [ ] |
-  GND   ■ <----    GND    | [■] |___________| [■] | 3.3V ---> ■ VCC
-                          ╰―――――――――――――――――――――――╯
-```
-
-| CC1101 Pin | ESP32 GPIO | Function |
-|------------|-----------|----------|
-| CSN | GPIO21 | Chip Select |
-| GDO0 | GPIO16 | IRQ (RX Clock) |
-| GDO2 | GPIO17 | TX Status |
-| MISO (SO) | GPIO19 | SPI Data In |
-| CLK (SCK) | GPIO18 | SPI Clock |
-| MOSI (SI) | GPIO23 | SPI Data Out |
-| GND | GND | Ground |
-| VCC | 3.3V | Power |
-
----
-
-## 2. M5Stack ATOM Lite + CC1101 (EBYTE TI)
-
-**Board:** M5Stack ATOM Lite S3 (ESP32-PICO-D4, 240MHz, 4MB Flash)  
-**Radio:** EBYTE TI CC1101 868 MHz  
-**Hostname:** `atom-watermeter`
-
-### Wiring
-
-```
-                        ╭―――――――――――――――――――――――――――――――――╮
-                        │         ╭―――――――――――――――╮       │
-                        │         │ ATOM LITE  S3 │       │
-                        │         ╰―――――――――――――――╯       │
- VCC  (red)    ■ <-3.3V │ [■]                             │
- CSN  (violet) ■ <-GP22 │ [■]                    SCL  [ ] │
- MOSI (orange) ■ <-GP19 │ [■]                    SDA  [ ] │
- CLK  (brown)  ■ <-GP23 │ [■]  ╭―――――――――――――――╮  5V  [ ] │
- MISO (green)  ■ <-GP33 │ [■]  │               │  GND [■] │ ■ GND (black)
-                        │      │     USB       │          │
-                        ╰―――――――――――――――――――――――――――――――――╯
-                               │    PORT.A     │
-                               ╰―――――――――――――――╯
-                                  [■] GND
-                                    [■] 5V
-                                      [■] GPIO26 (GDO0, yellow)
-                                        [■] GPIO32 (GDO2, blue)
-```
-
-| CC1101 Pin | ESP32 GPIO | Wire Color |
-|------------|-----------|------------|
-| CSN | GPIO22 | violet |
-| CLK (SCK) | GPIO23 | brown |
-| MOSI (SI) | GPIO19 | orange |
-| MISO (SO) | GPIO33 | green |
-| GDO0 (IRQ) | GPIO26 | yellow |
-| GDO2 | GPIO32 | blue |
-| VCC | 3.3V | red |
-| GND | GND | black |
-
----
-
-## 3. Heltec WiFi LoRa 32 V2 + SX1276
+## 1. Heltec WiFi LoRa 32 V2 + SX1276
 
 **Board:** Heltec WiFi LoRa 32 V2 (ESP32, 8MB Flash, built-in OLED + SX1276)  
 **Radio:** SX1276 (onboard LoRa chip, repurposed for wM-Bus)  
@@ -127,57 +42,7 @@ No external radio module needed. The onboard SX1276 LoRa chip is used directly f
 
 ---
 
-## 4. Heltec ESP32-S3 LoRa V4 + SX1262
 
-**Board:** Heltec ESP32-S3 LoRa V4 (ESP32-S3, 2MB PSRAM, 16MB Flash, OLED SSD1315, LoRa SX1262)  
-**Radio:** SX1262 (onboard, repurposed for wM-Bus)  
-**Hostname:** `wm5-heltec-izar`  
-**Extra Sensors:** Gas meter (pulse), DS18B20 temperature, analog pressure sensor
-
-### Wiring
-
-The SX1262 radio is onboard. External connections are only needed for the additional sensors:
-
-| Function | GPIO | Notes |
-|----------|------|-------|
-| SPI CLK | GPIO9 | To SX1262 (onboard) |
-| SPI MOSI | GPIO10 | To SX1262 (onboard) |
-| SPI MISO | GPIO11 | To SX1262 (onboard) |
-| CS (NSS) | GPIO8 | SX1262 chip select |
-| RESET | GPIO12 | SX1262 reset |
-| IRQ (DIO1) | GPIO14 | SX1262 interrupt |
-| OLED SDA | GPIO17 | I2C display (SSD1315) |
-| OLED SCL | GPIO18 | I2C display |
-| OLED Reset | GPIO21 | Display reset |
-| Dallas 1-Wire | GPIO4 | DS18B20 temperature sensor |
-| Gas Pulse | GPIO5 | Reed contact / pulse input |
-| Pressure ADC | GPIO1 | Analog pressure sensor |
-| LoRa TX Enable | GPIO35 | SX1262 TX switch |
-| LoRa RX Enable | GPIO36 | SX1262 RX switch |
-
----
-
-## Sensors Provided
-
-All configurations provide these water meter sensors to Home Assistant:
-
-| Sensor | Unit | Description |
-|--------|------|-------------|
-| Water Display | m3 | Total meter reading |
-| Water Current | L | Current flow since last telegram |
-| Water Hour | L | Consumption this hour |
-| Water Day | L | Consumption today |
-| Water Yesterday | L | Consumption yesterday |
-| Water Week | L | Consumption this week |
-| Water Month | L | Consumption this month |
-| Water Year | L | Consumption this year |
-| Battery Life | years | Remaining IZAR battery |
-| Update Interval | sec | Time between telegrams |
-| RSSI | dBm | Radio signal strength |
-
-The Heltec V4 configuration additionally provides gas meter readings (pulse-based) and water temperature/pressure.
-
----
 
 ## Getting Started
 
