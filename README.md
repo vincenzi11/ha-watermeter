@@ -36,29 +36,12 @@ The current version is based on **ESPHome** with **ESP32 boards** and the **SX12
 
 | **Heltec ESP32-S3 V4 FR Full** (recommended) | [`esphome/wm5-heltec-esp32s3-v4-FR-full.yaml`](esphome/wm5-heltec-esp32s3-v4-FR-full.yaml) |
 
-> **Recommendation:** The **Heltec boards** (WiFi LoRa 32 V2 and ESP32-S3 V4) are the easiest option. They have the radio chip (SX1276 / SX1262) already built-in on the board, so no additional CC1101 module, no extra wiring, and no soldering is required. Just flash and go.
-
+> **Recommendation:** The **Heltec boards** (WiFi LoRa 32 V2 and ESP32-S3 V4) are the easiest option. They have the radio chip (SX1262) already built-in on the board, 
 
 
 - Home Assistant
 
-### Quick Start
 
-1. Install ESPHome (Docker or HA Add-on)
-2. Create `secrets.yaml` with your WiFi credentials and meter ID
-3. Flash the appropriate YAML configuration:
-   ```bash
-   esphome run esphome/esp32-devkit-v4-wasserzahler.yaml
-   ```
-4. The device will be automatically discovered in Home Assistant
-
-### Test Configurations
-
-The [`esphome/test/`](esphome/test/) folder contains:
-- Minimal test configs to discover meter IDs in range
-- Pre-compiled firmware binaries for quick USB flashing
-
----
 
 ## Version History
 
