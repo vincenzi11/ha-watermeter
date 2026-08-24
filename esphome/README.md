@@ -1,6 +1,6 @@
 # ESPHome Configurations (v5)
 
-This folder contains the current ESPHome configurations for reading Diehl IZAR RC 868 water meters via wM-Bus using  SX1262/SX1276 radio modules.
+This folder contains the current ESPHome configurations for reading Diehl IZAR RC 868 water meters via wM-Bus using  SX1262 radio modules.
 
 All configurations use the **esp-idf** framework and require **ESPHome >= 2026.6.4**.
 
@@ -10,7 +10,7 @@ All configurations use the **esp-idf** framework and require **ESPHome >= 2026.6
 
 | # | Config | Board | Radio | Features |
 |---|--------|-------|-------|----------|
-| 1 | [wm5-heltec-esp32s3-v4-FR-full.yaml](wm5-heltec-esp32s3-v4-FR-full.yaml) | ESP32 DevKit V4 | CC1101 | Water meter, full statistics |
+| 1 | [wm5-heltec-esp32s3-v4-FR-full.yaml](wm5-heltec-esp32s3-v4-FR-full.yaml) | ESP32 DevKit V4 | SX1262 | Water meter, full statistics |
 
 > **Runtime Meter ID Change:** The [`wm5-heltec-esp32s3-v4-FR-full.yaml`](wm5-heltec-esp32s3-v4-FR-full.yaml) variant supports changing the meter ID at runtime without recompiling. The ID is stored in NVS flash and can be set via curl, the web dashboard, or a Home Assistant service call. See [Changing the Meter ID at Runtime](#changing-the-meter-id-at-runtime-no-recompile) below.
 
