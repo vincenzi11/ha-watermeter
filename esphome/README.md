@@ -12,7 +12,7 @@ All configurations use the **esp-idf** framework and require **ESPHome >= 2026.6
 |---|--------|-------|-------|----------|
 | 1 | [wm5-heltec-esp32s3-v4-FR-full.yaml](wm5-heltec-esp32s3-v4-FR-full.yaml) | ESP32 DevKit V4 | CC1101 | Water meter, full statistics |
 
-> **Runtime Meter ID Change:** The [`test/esp32-devkit-v4-wasserzahler.yaml`](test/esp32-devkit-v4-wasserzahler.yaml) variant supports changing the meter ID at runtime without recompiling. The ID is stored in NVS flash and can be set via curl, the web dashboard, or a Home Assistant service call. See [Changing the Meter ID at Runtime](#changing-the-meter-id-at-runtime-no-recompile) below.
+> **Runtime Meter ID Change:** The [`wm5-heltec-esp32s3-v4-FR-full.yaml`](wm5-heltec-esp32s3-v4-FR-full.yaml) variant supports changing the meter ID at runtime without recompiling. The ID is stored in NVS flash and can be set via curl, the web dashboard, or a Home Assistant service call. See [Changing the Meter ID at Runtime](#changing-the-meter-id-at-runtime-no-recompile) below.
 
 
 
