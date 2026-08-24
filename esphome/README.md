@@ -1,6 +1,6 @@
 # ESPHome Configurations (v5)
 
-This folder contains the current ESPHome configurations for reading Diehl IZAR RC 868 water meters via wM-Bus using CC1101 or SX1262/SX1276 radio modules.
+This folder contains the current ESPHome configurations for reading Diehl IZAR RC 868 water meters via wM-Bus using  SX1262/SX1276 radio modules.
 
 All configurations use the **esp-idf** framework and require **ESPHome >= 2026.6.4**.
 
